@@ -54,7 +54,7 @@ Le bouton *Réglages* en bas du panneau (ou *Ouvrir la configuration* dans Grist
 | `index.html`, `js/app.js`, `css/app.css` | L'application : carte, panneau (liste, fiche, réglages), géocodage |
 | `commun/` | En-tête et pied de page configurables, communs aux outils `grist-*` |
 | `exemples/` | Jeu d'exemple inventé (`demo.json`) et logos fictifs |
-| `tests/` | Tests automatisés de l'interface : `python3 tests/test_carte.py` (Playwright, fond de carte et géocodage simulés) |
+| `tests/` | Tests automatisés de l'interface : `python3 tests/test_carte.py` (Playwright, fond de carte et géocodage simulés), et fonctionnement dans Grist avec une API simulée : `python3 tests/test_dans_grist.py` |
 | `vendor/` | DSFR et Leaflet 1.9.4 (avec Leaflet.markercluster 1.5.3), embarqués |
 
 ## Fonctionnement et sécurité
@@ -99,9 +99,12 @@ Ce widget est assemblé dans [espace-reseau](https://github.com/lab17bis/espace-
 - [grist-catalogue](https://github.com/lab17bis/grist-catalogue) : catalogue public de fiches au DSFR.
 - [grist-graphique](https://github.com/lab17bis/grist-graphique) : tableaux de bord et graphiques au DSFR.
 - [grist-projet](https://github.com/lab17bis/grist-projet) : espace d'équipe pour gérer des projets.
-- [grist-management](https://github.com/lab17bis/grist-management) : écran de management visuel d'équipe, qui affiche aussi la prochaine réunion et les actions ouvertes.
+- [grist-reunion](https://github.com/lab17bis/grist-reunion) : réunions : ordre du jour, séance, compte rendu et suivi des actions.
+- [grist-management](https://github.com/lab17bis/grist-management) : écran de management visuel d'équipe.
+- [grist-decision](https://github.com/lab17bis/grist-decision) : consultations : boîte à idées, valorisation des réalisations, votes et suites données.
+- [grist-graphe](https://github.com/lab17bis/grist-graphe) : cartographie des acteurs et de leurs liens.
 
-Ils partagent les mêmes réglages d'en-tête et de pied de page.
+Les widgets qui ont un en-tête et un pied de page partagent les mêmes réglages.
 
 ## Écosystème
 

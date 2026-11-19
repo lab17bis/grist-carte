@@ -1,0 +1,298 @@
+{
+ "points": [
+  {
+   "Nom": "Collège A",
+   "Type": "Établissement",
+   "Adresse": "Reims",
+   "Latitude": 49.2583,
+   "Longitude": 4.0317,
+   "Description": "Collège de 600 élèves, engagé dans un projet de jardin pédagogique.",
+   "Public": "Élèves de 11 à 15 ans",
+   "Referent": "Camille Martin",
+   "Email": "contact@exemple.fr",
+   "Telephone": "03 00 00 00 10",
+   "Lien": "https://www.education.gouv.fr/"
+  },
+  {
+   "Nom": "Lycée B",
+   "Type": "Établissement",
+   "Adresse": "Châlons-en-Champagne",
+   "Latitude": 48.9566,
+   "Longitude": 4.3631,
+   "Description": "Lycée général et technologique, internat de 120 places.",
+   "Public": "Élèves de 15 à 18 ans",
+   "Referent": "Dominique Bernard",
+   "Email": "",
+   "Telephone": "",
+   "Lien": ""
+  },
+  {
+   "Nom": "École C",
+   "Type": "Établissement",
+   "Adresse": "Épernay",
+   "Latitude": 49.04,
+   "Longitude": 3.959,
+   "Description": "École élémentaire de 8 classes.",
+   "Public": "Élèves de 6 à 11 ans",
+   "Referent": "Alex Petit",
+   "Email": "",
+   "Telephone": "",
+   "Lien": ""
+  },
+  {
+   "Nom": "Lycée professionnel D",
+   "Type": "Établissement",
+   "Adresse": "Charleville-Mézières",
+   "Latitude": 49.762,
+   "Longitude": 4.7263,
+   "Description": "Lycée professionnel des métiers du bâtiment et de l'énergie.",
+   "Public": "Élèves et apprentis",
+   "Referent": "Sacha Durand",
+   "Email": "contact@exemple.fr",
+   "Telephone": "",
+   "Lien": "https://www.education.gouv.fr/"
+  },
+  {
+   "Nom": "Collège G",
+   "Type": "Établissement",
+   "Adresse": "Sedan",
+   "Latitude": 49.7019,
+   "Longitude": 4.9403,
+   "Description": "Collège rural, classe à horaires aménagés musique.",
+   "Public": "Élèves de 11 à 15 ans",
+   "Referent": "",
+   "Email": "",
+   "Telephone": "03 00 00 00 14",
+   "Lien": ""
+  },
+  {
+   "Nom": "Lycée H",
+   "Type": "Établissement",
+   "Adresse": "Troyes",
+   "Latitude": 48.2973,
+   "Longitude": 4.0744,
+   "Description": "Lycée polyvalent, campus des métiers.",
+   "Public": "Élèves de 15 à 18 ans",
+   "Referent": "Noa Laurent",
+   "Email": "",
+   "Telephone": "",
+   "Lien": ""
+  },
+  {
+   "Nom": "Collège I",
+   "Type": "Établissement",
+   "Adresse": "Chaumont",
+   "Latitude": 48.1113,
+   "Longitude": 5.1392,
+   "Description": "Collège de centre-ville.",
+   "Public": "Élèves de 11 à 15 ans",
+   "Referent": "",
+   "Email": "contact@exemple.fr",
+   "Telephone": "",
+   "Lien": ""
+  },
+  {
+   "Nom": "Circonscription E",
+   "Type": "Circonscription",
+   "Adresse": "Vitry-le-François",
+   "Latitude": 48.7247,
+   "Longitude": 4.5853,
+   "Description": "Circonscription du premier degré : 42 écoles.",
+   "Public": "Écoles et enseignants",
+   "Referent": "Morgan Leroy",
+   "Email": "",
+   "Telephone": "",
+   "Lien": ""
+  },
+  {
+   "Nom": "Circonscription J",
+   "Type": "Circonscription",
+   "Adresse": "Saint-Dizier",
+   "Latitude": 48.6383,
+   "Longitude": 4.9497,
+   "Description": "Circonscription du premier degré : 38 écoles.",
+   "Public": "Écoles et enseignants",
+   "Referent": "",
+   "Email": "",
+   "Telephone": "03 00 00 00 18",
+   "Lien": ""
+  },
+  {
+   "Nom": "Service de la formation",
+   "Type": "Service",
+   "Adresse": "Reims",
+   "Latitude": 49.253,
+   "Longitude": 4.04,
+   "Description": "Conçoit et organise la formation des personnels.",
+   "Public": "Tous les personnels",
+   "Referent": "Charlie Moreau",
+   "Email": "contact@exemple.fr",
+   "Telephone": "",
+   "Lien": ""
+  },
+  {
+   "Nom": "Direction des ressources humaines",
+   "Type": "Direction",
+   "Adresse": "Reims",
+   "Latitude": 49.261,
+   "Longitude": 4.025,
+   "Description": "Gestion des carrières et accompagnement des personnels.",
+   "Public": "Tous les personnels",
+   "Referent": "Lou Simon",
+   "Email": "",
+   "Telephone": "",
+   "Lien": ""
+  },
+  {
+   "Nom": "Association F",
+   "Type": "Partenaire",
+   "Adresse": "Troyes",
+   "Latitude": 48.301,
+   "Longitude": 4.08,
+   "Description": "Association d'éducation populaire, partenaire des projets culturels.",
+   "Public": "Jeunes et familles",
+   "Referent": "Maxime Garcia",
+   "Email": "",
+   "Telephone": "",
+   "Lien": "",
+   "Image": "exemples/logos/F.svg"
+  },
+  {
+   "Nom": "Médiathèque K",
+   "Type": "Partenaire",
+   "Adresse": "Langres",
+   "Latitude": 47.8625,
+   "Longitude": 5.3331,
+   "Description": "Médiathèque intercommunale, ateliers numériques.",
+   "Public": "Tout public",
+   "Referent": "",
+   "Email": "contact@exemple.fr",
+   "Telephone": "03 00 00 00 22",
+   "Lien": "",
+   "Image": "exemples/logos/K.svg"
+  },
+  {
+   "Nom": "Tiers-lieu L",
+   "Type": "Partenaire",
+   "Adresse": "Rethel",
+   "Latitude": 49.5097,
+   "Longitude": 4.3675,
+   "Description": "Tiers-lieu associatif : atelier de fabrication, espace de coworking.",
+   "Public": "Tout public",
+   "Referent": "",
+   "Email": "",
+   "Telephone": "",
+   "Lien": "",
+   "Image": "exemples/logos/L.svg"
+  },
+  {
+   "Nom": "Espace jeunesse M",
+   "Type": "Partenaire",
+   "Adresse": "12 rue de la République 51120 Sézanne",
+   "Description": "Point d'accueil jeunesse. Ses coordonnées ne sont pas encore connues : utilisez « Placer ces adresses ».",
+   "Public": "Jeunes de 11 à 25 ans",
+   "Referent": ""
+  }
+ ],
+ "liens": [
+  {
+   "De": "Collège A",
+   "Vers": "Association F",
+   "Type": "Partenariat",
+   "Force": 2,
+   "Sens": "Réciproque"
+  },
+  {
+   "De": "Lycée B",
+   "Vers": "Service de la formation",
+   "Type": "Formation",
+   "Force": 1,
+   "Sens": "Réciproque"
+  },
+  {
+   "De": "Service de la formation",
+   "Vers": "Circonscription E",
+   "Type": "Accompagne",
+   "Force": 2,
+   "Sens": "À sens unique"
+  },
+  {
+   "De": "Service de la formation",
+   "Vers": "Circonscription J",
+   "Type": "Accompagne",
+   "Force": 2,
+   "Sens": "À sens unique"
+  },
+  {
+   "De": "Lycée professionnel D",
+   "Vers": "Collège G",
+   "Type": "Liaison collège-lycée",
+   "Force": 3,
+   "Sens": "Réciproque"
+  },
+  {
+   "De": "Lycée H",
+   "Vers": "Association F",
+   "Type": "Partenariat",
+   "Force": 3,
+   "Sens": "Réciproque"
+  },
+  {
+   "De": "Direction des ressources humaines",
+   "Vers": "Service de la formation",
+   "Type": "Coopère avec",
+   "Force": 3,
+   "Sens": "Réciproque"
+  },
+  {
+   "De": "Médiathèque K",
+   "Vers": "Collège I",
+   "Type": "Partenariat",
+   "Force": 1,
+   "Sens": "Réciproque"
+  },
+  {
+   "De": "Tiers-lieu L",
+   "Vers": "Lycée professionnel D",
+   "Type": "Partenariat",
+   "Force": 2,
+   "Sens": "Réciproque"
+  },
+  {
+   "De": "École C",
+   "Vers": "Circonscription E",
+   "Type": "Fait partie de",
+   "Force": 3,
+   "Sens": "À sens unique"
+  }
+ ],
+ "options": {
+  "titre": "Structures du réseau",
+  "puces": {
+   "Établissement": {
+    "couleur": "blue-ecume",
+    "icone": "school"
+   },
+   "Circonscription": {
+    "couleur": "purple-glycine",
+    "icone": "map-pin-2"
+   },
+   "Service": {
+    "couleur": "blue-france",
+    "icone": "government"
+   },
+   "Direction": {
+    "couleur": "blue-france",
+    "icone": "bank"
+   },
+   "Partenaire": {
+    "couleur": "green-menthe",
+    "icone": "community"
+   }
+  },
+  "liens": {
+   "table": "Liens",
+   "afficher": true
+  }
+ }
+}

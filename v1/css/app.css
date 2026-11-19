@@ -1,0 +1,95 @@
+/* Mise en page propre à grist-carte. Les composants viennent du DSFR. */
+
+html, body { height: 100%; }
+body { background: var(--background-default-grey); color: var(--text-default-grey); display: flex; flex-direction: column; margin: 0; }
+.gc-marge { padding-left: 1rem; padding-right: 1rem; }
+.gc-evitement { position: absolute; left: -999px; }
+.gc-evitement:focus { left: 1rem; top: .5rem; z-index: 2000; background: var(--background-default-grey); }
+
+.gc-cadre { flex: 1; min-height: 0; display: grid; grid-template-columns: minmax(16rem, 22rem) 1fr; }
+.gc-cote { display: flex; flex-direction: column; min-height: 0; border-right: 1px solid var(--border-default-grey); background: var(--background-default-grey); }
+.gc-panneau { flex: 1; overflow-y: auto; padding: 1rem; }
+.gc-panneau:focus { outline: none; }
+.gc-carte { min-height: 20rem; z-index: 0; background: var(--background-alt-grey); }
+@media (max-width: 48em) {
+  html, body { height: auto; }
+  .gc-cadre { display: flex; flex-direction: column; }
+  .gc-carte { order: 1; height: 60vh; flex: none; }
+  .gc-cote { order: 2; border-right: 0; border-top: 1px solid var(--border-default-grey); }
+  .gc-panneau { overflow: visible; }
+}
+
+.gc-pied { display: flex; flex-wrap: nowrap; align-items: center; gap: .25rem; padding: .25rem .5rem; border-top: 1px solid var(--border-default-grey); }
+.gc-pied .fr-btn { margin: 0; }
+.gc-theme { width: auto; }
+
+.gc-titre { margin-bottom: .75rem; }
+.gc-alerte { margin-bottom: 1rem; }
+.gc-recherche { margin-bottom: 1rem; }
+.gc-recherche .fr-label { position: absolute; left: -999px; }
+.gc-legende { margin-bottom: .5rem; }
+.gc-legende .fr-fieldset__legend { padding-bottom: .5rem; }
+.gc-legende .fr-fieldset__element { margin-bottom: .25rem; }
+.gc-legende .fr-label { display: flex; align-items: center; gap: .375rem; }
+.gc-compte { color: var(--text-mention-grey); font-size: .875rem; font-weight: 400; }
+.gc-resume { margin: .5rem 0; }
+.gc-outils { display: flex; flex-wrap: wrap; align-items: flex-end; gap: .5rem 1rem; margin-bottom: .75rem; }
+.gc-outils .fr-select-group, .gc-outils .fr-checkbox-group { margin: 0; }
+.gc-geo { margin-bottom: .75rem; padding: .75rem; background: var(--background-alt-blue-france); }
+
+/* Mini-puce : légende, liste, fiche */
+.gc-mini { display: inline-flex; align-items: center; justify-content: center; flex: none; width: 1.5rem; height: 1.5rem; border-radius: 50%; background: var(--gc-couleur); color: #fff; }
+.gc-mini [class*=fr-icon-]::before { --icon-size: .875rem; }
+
+.gc-liste { list-style: none; margin: 0; padding: 0; }
+.gc-liste li { padding: 0; border-bottom: 1px solid var(--border-default-grey); }
+.gc-liste__bouton { display: flex; gap: .625rem; align-items: flex-start; width: 100%; text-align: left; padding: .5rem .25rem; background: none; }
+.gc-liste__bouton:hover { background: var(--background-alt-grey); }
+.gc-liste__nom { display: block; font-weight: 700; font-size: .875rem; }
+.gc-liste__info { display: block; font-size: .75rem; color: var(--text-mention-grey); }
+
+/* Fiche */
+.gc-retour { margin-bottom: .5rem; }
+.gc-fiche__image { margin: 0 0 1rem; background: var(--background-alt-grey); display: flex; justify-content: center; }
+.gc-fiche__image img { width: 100%; max-height: 10rem; object-fit: contain; }
+.gc-fiche__type { display: flex; align-items: center; gap: .5rem; font-size: .875rem; font-weight: 700; margin-bottom: .25rem; }
+.gc-fiche__titre:focus { outline: 2px solid #0a76f6; outline-offset: 2px; }
+.gc-fiche__texte { margin-bottom: .75rem; }
+.gc-coord { list-style: none; padding: 0; margin: 0 0 1rem; font-size: .875rem; }
+.gc-coord li { display: flex; gap: .5rem; padding: .125rem 0; }
+.gc-coord a { word-break: break-word; }
+.gc-details { font-size: .875rem; margin: 0 0 1rem; padding: 0; }
+.gc-details dt { font-weight: 700; padding: 0; }
+.gc-details dd { margin: 0 0 .5rem; padding: 0; }
+.gc-details dt, .gc-details dd { margin-left: 0; padding-left: 0; }
+.gc-voisins { list-style: none; padding: 0; margin: 0; }
+.gc-voisins li { padding: .125rem 0; }
+
+/* Réglages */
+.gc-reglage-puce { border-top: 1px solid var(--border-default-grey); padding: .75rem 0; }
+.gc-reglage-puce__titre { display: flex; align-items: center; gap: .5rem; margin-bottom: .5rem; }
+.gc-reglage-puce__titre .gc-puce { position: relative; }
+.gc-reglage-puce__choix { display: grid; grid-template-columns: 1fr 1fr; gap: .5rem; }
+.gc-reglage-puce__choix .fr-select-group { margin: 0; }
+
+/* Puces sur la carte */
+.gc-marqueur { background: none; border: 0; }
+.gc-puce { position: relative; display: block; filter: drop-shadow(0 1px 2px rgba(0, 0, 0, .35)); }
+.gc-puce svg { display: block; }
+.gc-puce__icone { position: absolute; left: 50%; top: 36.25%; transform: translate(-50%, -50%); color: var(--gc-couleur); line-height: 0; }
+.gc-puce__icone::before { --icon-size: 12px; }
+.gc-puce--active .gc-puce__icone::before { --icon-size: 15px; }
+.gc-puce-image { display: block; border-radius: 50%; border: 3px solid var(--gc-couleur); background: #fff; overflow: hidden; box-shadow: 0 1px 3px rgba(0, 0, 0, .4); }
+.gc-puce-image img { width: 100%; height: 100%; object-fit: cover; }
+.gc-puce-image.gc-puce--active { border-width: 4px; }
+.leaflet-marker-icon:focus-visible { outline: 3px solid #0a76f6; outline-offset: 2px; border-radius: 4px; }
+.gc-groupe { background: none; }
+.gc-groupe > span { display: flex; align-items: center; justify-content: center; border-radius: 50%; background: #000091; color: #fff; font-weight: 700; font-size: .875rem; border: 3px solid rgba(255, 255, 255, .85); box-shadow: 0 0 0 4px rgba(0, 0, 145, .25); }
+.leaflet-container { font-family: Marianne, arial, sans-serif; }
+.leaflet-container a { color: var(--text-action-high-blue-france); }
+.leaflet-tooltip { font-size: .8125rem; font-weight: 700; }
+.leaflet-control-attribution { font-size: .6875rem; }
+.gc-theme-label { margin: 0 0 0 auto; font-size: .875rem; }
+.gc-theme { margin-left: .25rem; }
+.gc-pied .fr-select { width: 6.5rem; margin-top: 0; flex: none; }
+.gc-pied .fr-btn { flex: none; }

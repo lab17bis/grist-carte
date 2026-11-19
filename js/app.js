@@ -557,6 +557,10 @@
   panneau.addEventListener('input', function (e) {
     if (e.target.hasAttribute('data-reglage') && e.target.type !== 'checkbox') majBrouillon(e.target);
   });
+  var rendreApres = false;
+  panneau.addEventListener('focusout', function (e) {
+    if (rendreApres && !(e.relatedTarget && panneau.contains(e.relatedTarget))) { rendreApres = false; setTimeout(rendrePanneau, 0); }
+  });
   panneau.addEventListener('keydown', function (e) {
     if (e.target.id === 'gc-q' && e.key === 'Enter') { e.preventDefault(); etat.q = e.target.value; dessiner(true); rendrePanneau(); var q = document.getElementById('gc-q'); if (q) q.focus(); }
   });
@@ -615,11 +619,20 @@
     grist.onRecords(function (records, m) {
       mappings = m || {};
       recus = records;
+      var associes = grist.mapColumnNames(records);
+      if (!associes) {
+        panneau.innerHTML = '<h1 class="fr-h5">Carte</h1><div class="fr-alert fr-alert--info fr-alert--sm"><p>Associez au moins la colonne Nom, et les colonnes Latitude et Longitude (ou Adresse), dans le panneau du widget à droite.</p></div>';
+        return;
+      }
       chargerMeta().then(function () {
-        points = (grist.mapColumnNames(records) || []).map(versPoint);
+        points = associes.map(versPoint);
         return chargerLiens();
       }).then(function () {
-        dessiner(premier); premier = false; rendrePanneau();
+        dessiner(premier); premier = false;
+        // Une mise à jour venue de Grist pendant une saisie dans le panneau attend la fin de la saisie.
+        var a = document.activeElement;
+        if (a && panneau.contains(a) && /^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName)) { rendreApres = true; return; }
+        rendrePanneau();
       });
     });
     grist.onRecord(function (r) {
