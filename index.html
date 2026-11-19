@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="fr" data-fr-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Carte</title>
+  <link rel="stylesheet" href="vendor/dsfr/dsfr.min.css">
+  <link rel="stylesheet" href="vendor/dsfr/utility/icons/icons.min.css">
+  <link rel="stylesheet" href="vendor/leaflet/leaflet.css">
+  <link rel="stylesheet" href="vendor/leaflet/MarkerCluster.css">
+  <link rel="stylesheet" href="commun/page.css?v=1">
+  <link rel="stylesheet" href="css/app.css?v=1">
+  <script src="https://docs.getgrist.com/grist-plugin-api.js"></script>
+</head>
+<body>
+  <a class="fr-link gc-evitement" href="#gc-panneau">Aller à la liste des points</a>
+  <div id="entete"></div>
+  <div id="gc-demo" class="fr-notice fr-notice--info" hidden>
+    <div class="gc-marge">
+      <div class="fr-notice__body">
+        <p class="fr-notice__title">Mode démonstration : données fictives, rien n'est enregistré.</p>
+      </div>
+    </div>
+  </div>
+  <main class="gc-cadre">
+    <div class="gc-cote">
+      <div id="gc-panneau" class="gc-panneau" tabindex="-1"><p>Chargement…</p></div>
+      <div class="gc-pied">
+        <button type="button" class="fr-btn fr-btn--sm fr-btn--tertiary-no-outline fr-icon-settings-5-line fr-btn--icon-left" id="gc-reglages">Réglages</button>
+        <button type="button" class="fr-btn fr-btn--sm fr-btn--tertiary-no-outline fr-icon-refresh-line fr-btn--icon-left" id="gc-actualiser">Actualiser</button>
+        <label class="fr-label gc-theme-label" for="gc-theme">Thème</label>
+        <select class="fr-select fr-select--sm gc-theme" id="gc-theme" title="Thème">
+          <option value="auto">Auto</option>
+          <option value="light">Clair</option>
+          <option value="dark">Sombre</option>
+        </select>
+      </div>
+    </div>
+    <div id="gc-carte" class="gc-carte" role="region" aria-label="Carte"></div>
+  </main>
+  <div id="pied"></div>
+  <script src="vendor/leaflet/leaflet.js"></script>
+  <script src="vendor/leaflet/leaflet.markercluster.js"></script>
+  <script src="commun/page-dsfr.js?v=2"></script>
+  <script src="js/app.js?v=1"></script>
+</body>
+</html>
