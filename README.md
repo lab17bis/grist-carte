@@ -91,7 +91,7 @@ Ce que fait cet outil : il ne crée aucune table. Il s'affiche sur la table de v
 
 ## Espaces clés en main
 
-Ce widget est assemblé dans [espace-reseau](https://github.com/lab17bis/espace-reseau) : la carte des structures du réseau et de leurs liens (page *Carte des structures*). Il s'ajoute à tout document qui contient des lieux ou des structures avec une adresse.
+Ce widget est assemblé dans [espace-communaute](https://github.com/lab17bis/espace-communaute) : la carte des structures de la communauté et de leurs liens (page *Carte des structures*). Il s'ajoute à tout document qui contient des lieux ou des structures avec une adresse.
 
 ## Autres outils de la même famille
 
