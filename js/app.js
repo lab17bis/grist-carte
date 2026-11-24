@@ -345,7 +345,7 @@
       Object.keys(FONDS).map(function (k) { return '<option value="' + k + '"' + (k === options.fond ? ' selected' : '') + '>' + FONDS[k].libelle + '</option>'; }).join('') + '</select></div>' +
       (liens.length ? '<div class="fr-checkbox-group fr-checkbox-group--sm"><input type="checkbox" id="gc-liens"' + (options.liens.afficher ? ' checked' : '') + '><label class="fr-label" for="gc-liens">Afficher les liens (' + liens.length + ')</label></div>' : '') +
       '<button type="button" class="fr-btn fr-btn--sm fr-btn--tertiary fr-icon-fullscreen-line fr-btn--icon-left" data-action="tout-afficher">Tout afficher</button></div>';
-    if (aPlacer.length) {
+    if (aPlacer.length && !PUBLIC) {
       h += '<div class="gc-geo"><p class="fr-text--sm fr-mb-1v"><strong>' + pluriel(aPlacer.length, 'adresse') + ' sans coordonnées.</strong></p>' +
         (peutGeocoder() ? '<button type="button" class="fr-btn fr-btn--sm fr-mt-1w" data-action="geocoder"' + (etat.geocodage ? ' disabled' : '') + '>' + (etat.geocodage ? 'Placement en cours… ' + etat.geocodage : 'Placer ces adresses') + '</button>' +
           '<p class="fr-text--xs fr-mt-1w fr-mb-0">Avec le service de géocodage de l\'IGN. Seules les adresses sont envoyées.</p>' :
