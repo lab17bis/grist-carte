@@ -2,6 +2,11 @@
 
 Les adresses `/v1/` ne changent pas : chaque version ajoute ou corrige, sans retirer ce qui existe.
 
+## 2026-11-24 (aperçu des puces)
+
+### Corrigé
+- Onglet Réglages : l'aperçu de la puce se met de nouveau à jour dès qu'on change la couleur ou l'icône d'un type.
+
 ## 2026-11-24 (page publique)
 
 ### Ajouté

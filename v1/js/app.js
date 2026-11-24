@@ -651,7 +651,15 @@
   }
   function ouvrirReglages() { monterCoque(); if (configLab) configLab.onglet('reglages'); }
   if (zoneConfig) {
-    zoneConfig.addEventListener('change', function (e) { if (e.target.hasAttribute('data-reglage') && etat.brouillon) majBrouillon(e.target); });
+    zoneConfig.addEventListener('change', function (e) {
+      if (!e.target.hasAttribute('data-reglage') || !etat.brouillon) return;
+      majBrouillon(e.target);
+      // L'aperçu des puces suit le choix : on redessine l'onglet en gardant les modifications.
+      if (configLab && /^puces\./.test(e.target.getAttribute('data-reglage'))) {
+        var id = e.target.id; configLab.rafraichir('reglages'); configLab.modifie(true);
+        var n = id && document.getElementById(id); if (n) n.focus();
+      }
+    });
     zoneConfig.addEventListener('input', function (e) { if (e.target.hasAttribute('data-reglage') && e.target.type !== 'checkbox' && etat.brouillon) majBrouillon(e.target); });
   }
 

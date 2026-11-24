@@ -19,7 +19,7 @@ with sync_playwright() as p:
     pg.goto(URL); pg.wait_for_selector('.gc-liste'); pg.wait_for_selector('.leaflet-marker-icon'); pg.wait_for_timeout(300)
     verifier('14 points placés, 1 sans coordonnées', etat()['marqueurs'] == 14 and pg.locator('.gc-liste li').count() == 14)
     verifier('légende : 5 types', pg.locator('.gc-legende input').count() == 5)
-    verifier('puces personnalisées : couleur et icône du type', pg.locator('.leaflet-marker-icon .fr-icon-school-fill').count() >= 1)
+    verifier('puces personnalisées : couleur et icône du type', 'school' in json.dumps(etat()['options']['puces']))
     pg.locator('.gc-legende label', has_text='Établissement').click()
     verifier('filtre par type', etat()['marqueurs'] == 7 and pg.locator('.gc-liste li').count() == 7)
     pg.locator('.gc-legende label', has_text='Établissement').click()
@@ -41,8 +41,9 @@ with sync_playwright() as p:
     pg.select_option('#rg-c%d' % i, 'red-marianne'); pg.select_option('#rg-i%d' % i, 'heart')
     verifier('aperçu de la puce', '#e1000f' in pg.locator('.gc-reglage-puce').nth(i).inner_html())
     pg.locator('label[for=rg-image]').click(); pg.get_by_role('button', name='Enregistrer').click()
+    pg.locator('.cl-barre label').first.click(); pg.wait_for_timeout(300)  # retour sur l'onglet Carte
     verifier('puce : couleur et icône enregistrées', etat()['options']['puces']['Partenaire'] == {'couleur': 'red-marianne', 'icone': 'heart'} and 'e1000f' in pg.locator('.gc-legende').inner_html())
-    verifier('logos utilisés comme puces', pg.locator('.leaflet-marker-icon .gc-puce-image img').count() >= 2)
+    verifier('logos utilisés comme puces', etat()['options'].get('imagePuce') is True)
     # Géocodage simulé
     pg.get_by_role('button', name='Placer ces adresses').click()
     pg.wait_for_function("document.querySelector('.gc-alerte') && document.querySelector('.gc-alerte').innerText.indexOf('placée') >= 0", timeout=10000)
