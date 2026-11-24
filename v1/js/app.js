@@ -72,7 +72,8 @@
   // État
   // ---------------------------------------------------------------------------
 
-  var DEMO = window.self === window.top;
+  var PUBLIC = !!(window.GristPublic && window.GristPublic.actif);
+  var DEMO = window.self === window.top && !PUBLIC;
   var options = JSON.parse(JSON.stringify(OPTIONS_DEFAUT));
   var points = [], liens = [], mappings = {}, libellesDetails = {}, meta = { tables: [], colonnes: [], table: null };
   var etat = { vue: 'liste', selection: null, q: '', masques: {}, alerte: null, geocodage: null, brouillon: null };
@@ -360,7 +361,7 @@
     }
     return h;
   }
-  function peutGeocoder() { return DEMO || (mappings.Adresse && mappings.Latitude && mappings.Longitude); }
+  function peutGeocoder() { if (PUBLIC) return false; return DEMO || (mappings.Adresse && mappings.Latitude && mappings.Longitude); }
 
   function vueFiche(p) {
     var a = apparence(p), lien = adresseSure(p.lien);
@@ -625,11 +626,18 @@
         var b = etat.brouillon || options;
         zone.innerHTML = '<h1 class="fr-h3">' + esc(b.titre || 'Carte') + '</h1><p class="fr-text--sm">La carte et la liste des points s\'affichent entre l\'en-tête et le pied de page.</p>';
       },
-      publication: { mode: 'connecte', adresseWidget: location.href.split('#')[0].split('?')[0], texte: 'Si le document est partagé en lecture par lien public, la carte s\'affiche aussi pour les personnes qui ont ce lien, sans compte.' },
+      publication: { mode: 'connecte', adresseWidget: location.href.split('#')[0].split('?')[0],
+        publier: { lienDoc: (options.publication && options.publication.lienDoc) || '', texte: 'La carte peut s\'afficher en page complète, sans compte Grist, en lecture seule : liste, recherche, fiches et liens entre les points.',
+          construire: function (l) {
+            var o = JSON.parse(JSON.stringify(etat.brouillon || options)); delete o.publication; o.page = pageEditee;
+            return window.GristPublic ? window.GristPublic.lien(location.href.split('#')[0].split('?')[0], { doc: l, table: meta.table, options: o, mappings: mappings }) : null;
+          },
+          surChangement: function (l) { if (!etat.brouillon) etat.brouillon = JSON.parse(JSON.stringify(options)); etat.brouillon.publication = { lienDoc: l }; } } },
       surOnglet: function (id) { if (id === 'vue' && carte) { setTimeout(function () { carte.invalidateSize(); }, 50); } },
       surEnregistrer: function () {
         var o = etat.brouillon || JSON.parse(JSON.stringify(options));
         o.page = pageEditee;
+        o.publication = o.publication || options.publication || { lienDoc: '' };
         enregistrerOptions(o).then(function () {
           etat.brouillon = JSON.parse(JSON.stringify(o));
           appliquerOptions(o);
