@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="vendor/leaflet/MarkerCluster.css">
   <link rel="stylesheet" href="commun/page.css?v=1">
   <link rel="stylesheet" href="css/app.css?v=1">
+  <link rel="stylesheet" href="commun/configuration.css?v=2">
   <script src="https://docs.getgrist.com/grist-plugin-api.js"></script>
 </head>
 <body>
@@ -22,10 +23,12 @@
       </div>
     </div>
   </div>
+  <div id="gc-config" class="gc-marge" hidden></div>
   <main class="gc-cadre">
     <div class="gc-cote">
       <div id="gc-panneau" class="gc-panneau" tabindex="-1"><p>Chargement…</p></div>
       <div class="gc-pied">
+        <button type="button" class="fr-btn fr-btn--sm fr-btn--secondary" id="gc-configurer">Configurer</button>
         <button type="button" class="fr-btn fr-btn--sm fr-btn--tertiary-no-outline fr-icon-settings-5-line fr-btn--icon-left" id="gc-reglages">Réglages</button>
         <button type="button" class="fr-btn fr-btn--sm fr-btn--tertiary-no-outline fr-icon-refresh-line fr-btn--icon-left" id="gc-actualiser">Actualiser</button>
         <label class="fr-label gc-theme-label" for="gc-theme">Thème</label>
@@ -42,6 +45,8 @@
   <script src="vendor/leaflet/leaflet.js"></script>
   <script src="vendor/leaflet/leaflet.markercluster.js"></script>
   <script src="commun/page-dsfr.js?v=2"></script>
-  <script src="js/app.js?v=1"></script>
+  <script src="commun/page-editeur.js?v=1"></script>
+  <script src="commun/configuration.js?v=4"></script>
+  <script src="js/app.js?v=2"></script>
 </body>
 </html>

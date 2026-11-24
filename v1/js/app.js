@@ -508,7 +508,9 @@
     options.liens = Object.assign({}, OPTIONS_DEFAUT.liens, options.liens || {});
     if (carte && fond !== options.fond) changerFond();
     if (window.PageDSFR && o && o.page && (o.page.titre || o.page.marque)) {
-      window.PageDSFR.appliquer(o.page, { entete: document.getElementById('entete'), pied: document.getElementById('pied') });
+      var cible = window.PageDSFR.appliquer(o.page, { entete: document.getElementById('entete'), pied: document.getElementById('pied') });
+      if (cible.entete) cible.entete.id = 'entete';
+      if (cible.pied) cible.pied.id = 'pied';
     }
     if (carte) { dessiner(ajuster); rendrePanneau(); }
   }
@@ -593,6 +595,58 @@
     appliquerTheme();
   });
   new MutationObserver(appliquerTheme).observe(document.documentElement, { attributes: true, attributeFilter: ['style'] });
+
+  // ---------------------------------------------------------------------------
+  // Page de configuration unique (réglages, en-tête et pied, aperçu, publication)
+  // ---------------------------------------------------------------------------
+
+  var configLab = null;
+  var zoneConfig = document.getElementById('gc-config');
+  function fermerConfig() {
+    etat.brouillon = null; configLab = null;
+    zoneConfig.hidden = true; zoneConfig.innerHTML = '';
+    document.querySelector('.gc-cadre').style.display = '';
+    if (carte) { carte.invalidateSize(); }
+    appliquerOptions(options);
+  }
+  function ouvrirConfig() {
+    if (!zoneConfig || !window.ConfigLab) return;
+    etat.brouillon = null; etat.vue = 'liste'; etat.alerte = null; rendrePanneau();
+    var h = vueReglages();
+    var b = etat.brouillon;
+    b.page = b.page || { marque: '', titre: 'Carte', pied: { accessibilite: '' } };
+    var corps = h.slice(h.indexOf('<div class="fr-input-group"><label class="fr-label" for="rg-titre"'), h.lastIndexOf('<ul class="fr-btns-group'));
+    document.querySelector('.gc-cadre').style.display = 'none';
+    zoneConfig.hidden = false;
+    configLab = window.ConfigLab.monter(zoneConfig, {
+      nom: 'Configuration de la carte',
+      libelleAnnuler: 'Fermer',
+      page: b.page,
+      onglets: [{ id: 'reglages', libelle: 'Réglages', rendre: function (zone) { zone.innerHTML = '<div class="cl-panneau"><p class="fr-text--sm">Les réglages sont propres à cette vue : ils sont enregistrés avec le widget dans le document.</p>' + corps + '</div>'; } }],
+      apercu: function (zone) {
+        zone.innerHTML = '<h1 class="fr-h3">' + esc(b.titre || 'Carte') + '</h1><p class="fr-text--sm">La carte et la liste des points s\'affichent entre l\'en-tête et le pied de page.</p>';
+      },
+      publication: { mode: 'connecte', adresseWidget: location.href.split('#')[0].split('?')[0], texte: 'Si le document est partagé en lecture par lien public, la carte s\'affiche aussi pour les personnes qui ont ce lien, sans compte.' },
+      surEnregistrer: function () {
+        var o = etat.brouillon;
+        enregistrerOptions(o).then(function () {
+          etat.brouillon = JSON.parse(JSON.stringify(o));
+          appliquerOptions(o);
+          configLab.enregistre();
+          configLab.message('success', DEMO ? 'Réglages appliqués (démonstration : non enregistrés).' : 'Réglages enregistrés.');
+        }).catch(function (err) {
+          configLab.message('error', 'Enregistrement impossible : il faut pouvoir modifier le document. (' + ((err && err.message) || err) + ')');
+        });
+      },
+      surAnnuler: fermerConfig
+    });
+  }
+  if (zoneConfig) {
+    zoneConfig.addEventListener('change', function (e) { if (e.target.hasAttribute('data-reglage')) majBrouillon(e.target); });
+    zoneConfig.addEventListener('input', function (e) { if (e.target.hasAttribute('data-reglage') && e.target.type !== 'checkbox') majBrouillon(e.target); });
+  }
+  var boutonConfigurer = document.getElementById('gc-configurer');
+  if (boutonConfigurer) boutonConfigurer.addEventListener('click', ouvrirConfig);
 
   // ---------------------------------------------------------------------------
   // Démarrage

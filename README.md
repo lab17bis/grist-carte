@@ -30,7 +30,7 @@ Si la table n'a que des adresses, créez deux colonnes numériques `Latitude` et
 
 ## Le régler
 
-Le bouton *Réglages* en bas du panneau (ou *Ouvrir la configuration* dans Grist) permet de régler : le titre, le regroupement des points proches, l'affichage de la liste, le logo comme puce, la couleur et l'icône de chaque type, la table de liens. Les réglages sont enregistrés **avec le widget**, dans la vue : deux cartes de la même table peuvent avoir des réglages différents. Le fond de carte et l'affichage des liens choisis dans le panneau sont aussi retenus.
+Le bouton *Configurer* en bas du panneau ouvre une page de configuration en quatre onglets : *Réglages*, *En-tête et pied*, *Aperçu* (le rendu avec les réglages en cours) et *Publication* (qui peut utiliser l'outil, adresse du widget). Le bouton *Réglages* en bas du panneau (ou *Ouvrir la configuration* dans Grist) reste disponible. Les réglages permettent de régler : le titre, le regroupement des points proches, l'affichage de la liste, le logo comme puce, la couleur et l'icône de chaque type, la table de liens. Les réglages sont enregistrés **avec le widget**, dans la vue : deux cartes de la même table peuvent avoir des réglages différents. Le fond de carte et l'affichage des liens choisis dans le panneau sont aussi retenus.
 
 | Colonne associée | Valeurs reconnues |
 | --- | --- |
