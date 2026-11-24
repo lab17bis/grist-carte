@@ -116,6 +116,14 @@ Les widgets qui ont un en-tête et un pied de page partagent les mêmes réglage
 
 Grist, widget Grist, carte, cartographie, carte interactive, Leaflet, IGN, Géoplateforme, Plan IGN, géocodage, adresse, lieux, établissements, structures, partenaires, annuaire cartographique, DSFR, Système de design de l'État, La Suite numérique, DINUM, service public, logiciel libre.
 
+## Page publique
+
+Paramètres de l'adresse : `public=1&doc=<lien>&table=<table des points>`. La page affiche la carte, la légende-filtre, la liste et les fiches ; les commandes de modification et de placement des adresses sont retirées.
+
+L'onglet **Publication** construit le lien d'une page publique : collez le lien du document Grist partagé en lecture publique (*Partager › Accès public : Lecteur*), puis copiez ou ouvrez le lien obtenu. La page est en lecture seule, sans compte, et n'écrit jamais dans le document. L'option `integre=1` retire l'en-tête et le pied de page pour intégrer la page dans un autre site ou dans le [portail](https://github.com/lab17bis/grist-portail).
+
+Le partage en lecture publique rend lisibles **toutes** les tables du document, pas seulement celles que la page affiche. Pour masquer une table ou une colonne au public, utilisez les règles d'accès de Grist, par exemple avec la condition `not user.IsLoggedIn` (lecture refusée). La page tolère une table masquée. Testez en navigation privée avant de diffuser le lien.
+
 ## Licence
 
 Code sous licence MIT (voir `LICENSE`). Le DSFR embarqué dans `vendor/dsfr/` et Leaflet dans `vendor/leaflet/` (licence BSD-2, extension de regroupement sous licence MIT) conservent leur propre licence. Réutilisation, adaptation et contributions bienvenues.
