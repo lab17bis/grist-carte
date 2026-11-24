@@ -528,7 +528,7 @@
     if (!el || el.disabled) return;
     var a = el.getAttribute('data-action');
     if (el.hasAttribute('data-point')) { selectionner(num(el.getAttribute('data-point')), false); var t = document.getElementById('gc-fiche-titre'); if (t) t.focus(); return; }
-    if (a === 'retour') { etat.brouillon = null; etat.alerte = null; var ancien = etat.selection; selectionner(null); var b = panneau.querySelector('[data-point="' + ancien + '"]'); if (b) b.focus(); return; }
+    if (a === 'retour') { etat.alerte = null; var ancien = etat.selection; selectionner(null); var b = panneau.querySelector('[data-point="' + ancien + '"]'); if (b) b.focus(); return; }
     if (a === 'tout-afficher') { toutAfficher(); return; }
     if (a === 'rechercher') { etat.q = document.getElementById('gc-q').value; dessiner(true); rendrePanneau(); return; }
     if (a === 'geocoder') { geocoder(); return; }
@@ -566,7 +566,7 @@
   panneau.addEventListener('keydown', function (e) {
     if (e.target.id === 'gc-q' && e.key === 'Enter') { e.preventDefault(); etat.q = e.target.value; dessiner(true); rendrePanneau(); var q = document.getElementById('gc-q'); if (q) q.focus(); }
   });
-  document.getElementById('gc-reglages').addEventListener('click', function () { etat.vue = 'reglages'; etat.alerte = null; rendrePanneau(); var t = panneau.querySelector('h2'); if (t) { t.setAttribute('tabindex', '-1'); t.focus(); } });
+  document.getElementById('gc-reglages').addEventListener('click', function () { ouvrirReglages(); });
   document.getElementById('gc-actualiser').addEventListener('click', function () { (DEMO ? chargerDemo() : chargerMeta().then(chargerLiens)).then(function () { dessiner(false); rendrePanneau(); }); });
 
   // ---------------------------------------------------------------------------
@@ -601,34 +601,35 @@
   // ---------------------------------------------------------------------------
 
   var configLab = null;
-  var zoneConfig = document.getElementById('gc-config');
-  function fermerConfig() {
-    etat.brouillon = null; configLab = null;
-    zoneConfig.hidden = true; zoneConfig.innerHTML = '';
-    document.querySelector('.gc-cadre').style.display = '';
-    if (carte) { carte.invalidateSize(); }
-    appliquerOptions(options);
-  }
-  function ouvrirConfig() {
-    if (!zoneConfig || !window.ConfigLab) return;
-    etat.brouillon = null; etat.vue = 'liste'; etat.alerte = null; rendrePanneau();
+  var zoneConfig = document.getElementById('gc-coque');
+  var pageEditee = null;
+  // Contenu de l'onglet Réglages : le formulaire de vueReglages(), sans ses boutons propres.
+  function corpsReglages() {
     var h = vueReglages();
-    var b = etat.brouillon;
-    b.page = b.page || { marque: '', titre: 'Carte', pied: { accessibilite: '' } };
-    var corps = h.slice(h.indexOf('<div class="fr-input-group"><label class="fr-label" for="rg-titre"'), h.lastIndexOf('<ul class="fr-btns-group'));
-    document.querySelector('.gc-cadre').style.display = 'none';
-    zoneConfig.hidden = false;
+    return h.slice(h.indexOf('<div class="fr-input-group"><label class="fr-label" for="rg-titre"'), h.lastIndexOf('<ul class="fr-btns-group'));
+  }
+  function rafraichirReglages() {
+    if (!configLab || configLab.estModifie()) return;
+    etat.brouillon = null;
+    configLab.rafraichir('reglages');
+  }
+  function monterCoque() {
+    if (configLab || !zoneConfig || !window.ConfigLab) return;
+    pageEditee = JSON.parse(JSON.stringify(options.page || { marque: '', titre: 'Carte', pied: { accessibilite: '' } }));
     configLab = window.ConfigLab.monter(zoneConfig, {
-      nom: 'Configuration de la carte',
-      libelleAnnuler: 'Fermer',
-      page: b.page,
-      onglets: [{ id: 'reglages', libelle: 'Réglages', rendre: function (zone) { zone.innerHTML = '<div class="cl-panneau"><p class="fr-text--sm">Les réglages sont propres à cette vue : ils sont enregistrés avec le widget dans le document.</p>' + corps + '</div>'; } }],
+      nom: 'Carte',
+      vue: { libelle: 'Carte', element: document.querySelector('.gc-cadre') },
+      page: pageEditee,
+      onglets: [{ id: 'reglages', libelle: 'Réglages', rendre: function (zone) { zone.innerHTML = '<div class="cl-panneau"><p class="fr-text--sm">Les réglages sont propres à cette vue : ils sont enregistrés avec le widget dans le document.</p>' + corpsReglages() + '</div>'; } }],
       apercu: function (zone) {
+        var b = etat.brouillon || options;
         zone.innerHTML = '<h1 class="fr-h3">' + esc(b.titre || 'Carte') + '</h1><p class="fr-text--sm">La carte et la liste des points s\'affichent entre l\'en-tête et le pied de page.</p>';
       },
       publication: { mode: 'connecte', adresseWidget: location.href.split('#')[0].split('?')[0], texte: 'Si le document est partagé en lecture par lien public, la carte s\'affiche aussi pour les personnes qui ont ce lien, sans compte.' },
+      surOnglet: function (id) { if (id === 'vue' && carte) { setTimeout(function () { carte.invalidateSize(); }, 50); } },
       surEnregistrer: function () {
-        var o = etat.brouillon;
+        var o = etat.brouillon || JSON.parse(JSON.stringify(options));
+        o.page = pageEditee;
         enregistrerOptions(o).then(function () {
           etat.brouillon = JSON.parse(JSON.stringify(o));
           appliquerOptions(o);
@@ -637,16 +638,14 @@
         }).catch(function (err) {
           configLab.message('error', 'Enregistrement impossible : il faut pouvoir modifier le document. (' + ((err && err.message) || err) + ')');
         });
-      },
-      surAnnuler: fermerConfig
+      }
     });
   }
+  function ouvrirReglages() { monterCoque(); if (configLab) configLab.onglet('reglages'); }
   if (zoneConfig) {
-    zoneConfig.addEventListener('change', function (e) { if (e.target.hasAttribute('data-reglage')) majBrouillon(e.target); });
-    zoneConfig.addEventListener('input', function (e) { if (e.target.hasAttribute('data-reglage') && e.target.type !== 'checkbox') majBrouillon(e.target); });
+    zoneConfig.addEventListener('change', function (e) { if (e.target.hasAttribute('data-reglage') && etat.brouillon) majBrouillon(e.target); });
+    zoneConfig.addEventListener('input', function (e) { if (e.target.hasAttribute('data-reglage') && e.target.type !== 'checkbox' && etat.brouillon) majBrouillon(e.target); });
   }
-  var boutonConfigurer = document.getElementById('gc-configurer');
-  if (boutonConfigurer) boutonConfigurer.addEventListener('click', ouvrirConfig);
 
   // ---------------------------------------------------------------------------
   // Démarrage
@@ -659,15 +658,16 @@
 
   if (DEMO) {
     document.getElementById('gc-demo').hidden = false;
-    chargerDemo().then(function () { changerFond(); dessiner(true); rendrePanneau(); }).catch(function (err) {
+    chargerDemo().then(function () { changerFond(); dessiner(true); rendrePanneau(); monterCoque(); }).catch(function (err) {
       panneau.innerHTML = '<div class="fr-alert fr-alert--error"><p>Chargement impossible : ' + esc(err.message || err) + '</p></div>';
     });
   } else {
     var premier = true, recus = null;
     grist.ready({ requiredAccess: 'full', columns: COLONNES, allowSelectBy: true,
-      onEditOptions: function () { etat.vue = 'reglages'; rendrePanneau(); } });
+      onEditOptions: function () { ouvrirReglages(); } });
     grist.onOptions(function (o) {
       appliquerOptions(o || {}, premier && recus !== null);
+      monterCoque(); rafraichirReglages();
       if (recus !== null) chargerLiens().then(function () { dessiner(false); rendrePanneau(); });
     });
     grist.onRecords(function (records, m) {
@@ -683,6 +683,7 @@
         return chargerLiens();
       }).then(function () {
         dessiner(premier); premier = false;
+        monterCoque(); rafraichirReglages();
         // Une mise à jour venue de Grist pendant une saisie dans le panneau attend la fin de la saisie.
         var a = document.activeElement;
         if (a && panneau.contains(a) && /^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName)) { rendreApres = true; return; }
@@ -694,6 +695,7 @@
     });
     // Rien n'arrive si aucune colonne n'est associée : on l'indique.
     setTimeout(function () {
+      monterCoque();
       if (recus === null) panneau.innerHTML = '<h1 class="fr-h5">Carte</h1><div class="fr-alert fr-alert--info fr-alert--sm"><p>Associez au moins les colonnes Nom, Latitude et Longitude (ou Adresse) dans le panneau du widget, à droite.</p></div>';
     }, 2500);
   }

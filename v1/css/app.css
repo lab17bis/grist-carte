@@ -93,3 +93,11 @@ body { background: var(--background-default-grey); color: var(--text-default-gre
 .gc-theme { margin-left: .25rem; }
 .gc-pied .fr-select { width: 6.5rem; margin-top: 0; flex: none; }
 .gc-pied .fr-btn { flex: none; }
+
+/* Coque à onglets (ajout 2026-11-24) */
+#gc-coque { flex: 1; min-height: 0; display: flex; flex-direction: column; }
+#gc-coque > .cl-barre { margin: .5rem 1rem; flex: none; }
+#gc-coque > .cl-message { flex: none; padding: 0 1rem; }
+#gc-coque > .cl-section[data-cl-section="vue"]:not([hidden]) { flex: 1; min-height: 0; display: flex; }
+#gc-coque > .cl-section[data-cl-section="vue"] > .gc-cadre { flex: 1; }
+#gc-coque > .cl-section:not([data-cl-section="vue"]):not([hidden]) { padding: 0 1rem 1rem; overflow-y: auto; }
