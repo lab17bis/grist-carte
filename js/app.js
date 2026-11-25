@@ -630,7 +630,8 @@
         } else if (avantApercu) {
           appliquerOptions(avantApercu, true); avantApercu = null;
         }
-        if (carte) { setTimeout(function () { carte.invalidateSize(); }, 50); }
+        // Le conteneur change de taille en passant d'un onglet à l'autre : on recale le fond de carte et on recadre sur les points.
+        if (carte) { setTimeout(function () { carte.invalidateSize(); dessiner(true); }, 200); }
       },
       publication: { mode: 'connecte', adresseWidget: location.href.split('#')[0].split('?')[0],
         publier: { lienDoc: (options.publication && options.publication.lienDoc) || '', texte: 'La carte peut s\'afficher en page complète, sans compte Grist, en lecture seule : liste, recherche, fiches et liens entre les points.',

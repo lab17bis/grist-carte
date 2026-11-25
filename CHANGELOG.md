@@ -6,6 +6,7 @@ Les adresses `/v1/` ne changent pas : chaque version ajoute ou corrige, sans ret
 
 ### Amélioré
 - Onglet « Aperçu » de la configuration : il montre maintenant la carte elle-même, entre l'en-tête et le pied de page, au lieu d'un exemple fixe. Les réglages en cours de saisie, même non enregistrés, s'appliquent le temps de l'aperçu ; en quittant l'onglet, l'outil revient à ses réglages enregistrés.
+- Carte : le fond de carte est recalé et recadré sur les points à l'entrée et à la sortie de l'aperçu (sinon les tuiles s'affichaient décalées).
 - Dans l'aperçu, l'outil est réellement actif : ce que vous y faites s'applique au document. Un message le rappelle.
 
 ## 2026-11-25 (audit de sécurité)
