@@ -102,6 +102,7 @@ Ce widget est assemblé dans [espace-communaute](https://github.com/lab17bis/esp
 - [grist-reunion](https://github.com/lab17bis/grist-reunion) : réunions : ordre du jour, séance, compte rendu et suivi des actions.
 - [grist-management](https://github.com/lab17bis/grist-management) : écran de management visuel d'équipe.
 - [grist-consultation](https://github.com/lab17bis/grist-consultation) : consultations : boîte à idées, valorisation des réalisations, votes et suites données.
+- [grist-annuaire](https://github.com/lab17bis/grist-annuaire) : annuaire des personnes et des structures d'un document : recherche, fiches, doublons, import, protection des données.
 - [grist-graphe](https://github.com/lab17bis/grist-graphe) : cartographie des acteurs et de leurs liens.
 
 Les widgets qui ont un en-tête et un pied de page partagent les mêmes réglages.
@@ -129,3 +130,5 @@ Le partage en lecture publique rend lisibles **toutes** les tables du document, 
 Code sous licence MIT (voir `LICENSE`). Le DSFR embarqué dans `vendor/dsfr/` et Leaflet dans `vendor/leaflet/` (licence BSD-2, extension de regroupement sous licence MIT) conservent leur propre licence. Réutilisation, adaptation et contributions bienvenues.
 
 Conçu par le Lab 17 bis, laboratoire d'innovation publique de l'académie de Reims. Contact : <lab17bis@ac-reims.fr>
+
+Widget conçu par le Lab 17 bis, le laboratoire d'innovation publique de l'académie de Reims.
