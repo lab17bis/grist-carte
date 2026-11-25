@@ -46,7 +46,7 @@ with sync_playwright() as p:
     verifier('logos utilisés comme puces', etat()['options'].get('imagePuce') is True)
     # Géocodage simulé
     pg.get_by_role('button', name='Placer ces adresses').click()
-    pg.wait_for_function("document.querySelector('.gc-alerte') && document.querySelector('.gc-alerte').innerText.indexOf('placée') >= 0", timeout=10000)
+    pg.wait_for_function("() => document.querySelector('.gc-alerte') && document.querySelector('.gc-alerte').innerText.indexOf('placée') >= 0", timeout=10000)
     verifier('géocodage : adresse placée', etat()['marqueurs'] == 15 and 'placée' in pg.locator('.gc-alerte').inner_text())
     pg.screenshot(path='/tmp/carte-liste.png')
     pg.locator('.gc-liste__bouton', has_text='Lycée B').click(); pg.wait_for_timeout(500); pg.screenshot(path='/tmp/carte-fiche.png')
