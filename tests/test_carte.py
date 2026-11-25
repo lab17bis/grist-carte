@@ -44,6 +44,17 @@ with sync_playwright() as p:
     pg.locator('.cl-barre label').first.click(); pg.wait_for_timeout(300)  # retour sur l'onglet Carte
     verifier('puce : couleur et icône enregistrées', etat()['options']['puces']['Partenaire'] == {'couleur': 'red-marianne', 'icone': 'heart'} and 'e1000f' in pg.locator('.gc-legende').inner_html())
     verifier('logos utilisés comme puces', etat()['options'].get('imagePuce') is True)
+    # Aperçu réel : la carte elle-même, avec le brouillon non enregistré
+    pg.locator('#gc-reglages').click(); pg.wait_for_selector('.gc-reglage-puce')
+    j = [t for t in pg.locator('.gc-reglage-puce__titre strong').all_inner_texts()].index('Établissement')
+    avant = pg.locator('.gc-legende').inner_html().count('e1000f')
+    pg.select_option('#rg-c%d' % j, 'red-marianne')
+    pg.locator('.cl-barre label', has_text='Aperçu').click(); pg.wait_for_timeout(500)
+    verifier('aperçu réel : la carte est dans le cadre de l\'aperçu', pg.locator('.cl-apercu .gc-cadre').count() == 1 and pg.locator('.cl-apercu .leaflet-marker-icon').count() > 0)
+    verifier('aperçu réel : les réglages non enregistrés s\'appliquent', pg.locator('.gc-legende').inner_html().count('e1000f') > avant)
+    pg.locator('.cl-barre label', has_text='Réglages').click(); pg.wait_for_timeout(300)
+    verifier('aperçu quitté : la carte est revenue dans son onglet, réglages enregistrés rétablis', pg.locator('.cl-apercu .gc-cadre').count() == 0 and pg.locator('.gc-legende').inner_html().count('e1000f') == avant)
+    pg.locator('.cl-barre label').first.click(); pg.wait_for_timeout(300)
     # Géocodage simulé
     pg.get_by_role('button', name='Placer ces adresses').click()
     pg.wait_for_function("() => document.querySelector('.gc-alerte') && document.querySelector('.gc-alerte').innerText.indexOf('placée') >= 0", timeout=10000)

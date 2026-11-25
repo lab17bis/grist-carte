@@ -603,7 +603,7 @@
 
   var configLab = null;
   var zoneConfig = document.getElementById('gc-coque');
-  var pageEditee = null;
+  var pageEditee = null, avantApercu = null;
   // Contenu de l'onglet Réglages : le formulaire de vueReglages(), sans ses boutons propres.
   function corpsReglages() {
     var h = vueReglages();
@@ -622,9 +622,15 @@
       vue: { libelle: 'Carte', element: document.querySelector('.gc-cadre') },
       page: pageEditee,
       onglets: [{ id: 'reglages', libelle: 'Réglages', rendre: function (zone) { zone.innerHTML = '<div class="cl-panneau"><p class="fr-text--sm">Les réglages sont propres à cette vue : ils sont enregistrés avec le widget dans le document.</p>' + corpsReglages() + '</div>'; } }],
-      apercu: function (zone) {
-        var b = etat.brouillon || options;
-        zone.innerHTML = '<h1 class="fr-h3">' + esc(b.titre || 'Carte') + '</h1><p class="fr-text--sm">La carte et la liste des points s\'affichent entre l\'en-tête et le pied de page.</p>';
+      // Aperçu réel : la carte elle-même s'affiche sous l'en-tête, avec les réglages en cours (même non enregistrés).
+      surApercu: function (ouvert) {
+        if (ouvert) {
+          avantApercu = JSON.parse(JSON.stringify(options));
+          if (etat.brouillon) { appliquerOptions(Object.assign({}, etat.brouillon, { page: pageEditee }), true); }
+        } else if (avantApercu) {
+          appliquerOptions(avantApercu, true); avantApercu = null;
+        }
+        if (carte) { setTimeout(function () { carte.invalidateSize(); }, 50); }
       },
       publication: { mode: 'connecte', adresseWidget: location.href.split('#')[0].split('?')[0],
         publier: { lienDoc: (options.publication && options.publication.lienDoc) || '', texte: 'La carte peut s\'afficher en page complète, sans compte Grist, en lecture seule : liste, recherche, fiches et liens entre les points.',
