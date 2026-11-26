@@ -351,6 +351,11 @@
           '<p class="fr-text--xs fr-mt-1w fr-mb-0">Avec le service de géocodage de l\'IGN. Seules les adresses sont envoyées.</p>' :
           '<p class="fr-text--xs fr-mb-0">Associez les colonnes Adresse, Latitude et Longitude du widget pour les placer.</p>') + '</div>';
     }
+    if (!DEMO && !PUBLIC && !(mappings.Latitude && mappings.Longitude) && !mappings.Adresse) {
+      h += '<div class="fr-alert fr-alert--info fr-alert--sm fr-mt-2w"><p>Aucune colonne de position n\'est associée : associez Latitude et Longitude, ou Adresse, dans le panneau du widget à droite.</p></div>';
+    } else if (!DEMO && !PUBLIC && (mappings.Latitude ? !mappings.Longitude : mappings.Longitude)) {
+      h += '<div class="fr-alert fr-alert--info fr-alert--sm fr-mt-2w"><p>Associez à la fois Latitude et Longitude : une seule des deux ne suffit pas pour placer un point.</p></div>';
+    }
     h += '<p class="gc-compte gc-resume" aria-live="polite">' + pluriel(vis.length, 'point') + ' affiché' + (vis.length > 1 ? 's' : '') +
       (sansCoord.length ? ' · ' + pluriel(sansCoord.length, 'ligne') + ' sans coordonnées' : '') + '</p>';
     if (options.liste) {
