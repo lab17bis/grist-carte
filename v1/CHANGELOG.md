@@ -2,6 +2,11 @@
 
 Les adresses `/v1/` ne changent pas : chaque version ajoute ou corrige, sans retirer ce qui existe.
 
+## 2026-11-26 (tables déjà présentes dans le document)
+
+### Ajouté
+- Le panneau signale quand aucune colonne de position n'est associée (Latitude et Longitude, ou Adresse), ou quand une seule des deux coordonnées l'est.
+
 ## 2026-11-26 (style commun de configuration)
 
 ### Corrigé
