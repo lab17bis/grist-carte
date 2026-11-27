@@ -522,6 +522,7 @@
   }
   function enregistrerOptions(o) {
     if (DEMO) return Promise.resolve();
+    if (window.BarreLab && window.BarreLab.modeEnregistre()) { o = Object.assign({}, o, { modeLab: window.BarreLab.modeEnregistre() }); } // garde l'affichage choisi pour cette vue
     return grist.setOptions(o);
   }
 
@@ -623,7 +624,7 @@
     if (configLab || !zoneConfig || !window.ConfigLab) return;
     pageEditee = JSON.parse(JSON.stringify(options.page || { marque: '', titre: 'Carte', pied: { accessibilite: '' } }));
     configLab = window.ConfigLab.monter(zoneConfig, {
-      nom: 'Carte',
+      nom: 'Widget carte',
       vue: { libelle: 'Carte', element: document.querySelector('.gc-cadre') },
       page: pageEditee,
       onglets: [{ id: 'reglages', libelle: 'Réglages', rendre: function (zone) { zone.innerHTML = '<div class="cl-panneau"><p class="fr-text--sm">Les réglages sont propres à cette vue : ils sont enregistrés avec le widget dans le document.</p>' + corpsReglages() + '</div>'; } }],
@@ -645,7 +646,7 @@
             return window.GristPublic ? window.GristPublic.lien(location.href.split('#')[0].split('?')[0], { doc: l, table: meta.table, options: o, mappings: mappings }) : null;
           },
           surChangement: function (l) { if (!etat.brouillon) etat.brouillon = JSON.parse(JSON.stringify(options)); etat.brouillon.publication = { lienDoc: l }; } } },
-      surOnglet: function (id) { if (id === 'vue' && carte) { setTimeout(function () { carte.invalidateSize(); }, 50); } },
+      surOnglet: function (id) { if ((id === 'vue' || id === 'apercu') && carte) { setTimeout(function () { carte.invalidateSize(); }, 50); } },
       surEnregistrer: function () {
         var o = etat.brouillon || JSON.parse(JSON.stringify(options));
         o.page = pageEditee;

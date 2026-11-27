@@ -39,7 +39,7 @@ with sync_playwright() as p:
     f.locator('.gc-liste li').nth(2).wait_for()
     f.locator('.gc-liste__bouton', has_text='Lycée B').click()
     verifier('carte : sélection transmise à Grist', mock(pg).get('curseur') == {'rowId': 1})
-    f.locator('#gc-reglages').click(); f.locator('label[for=rg-image]').click(); f.get_by_role('button', name='Enregistrer').click()
+    f.locator('.cl-barre .cl-onglets label', has_text='Réglages').click(); f.locator('label[for=rg-image]').click(); f.get_by_role('button', name='Enregistrer').click()
     verifier('carte : réglages enregistrés avec le widget', mock(pg)['options']['imagePuce'] is True and mock(pg)['options']['puces']['Partenaire']['icone'] == 'community')
     pg.close()
     verifier('aucune erreur JavaScript', not erreurs)
